@@ -1,0 +1,1491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0f1419">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="问道长生">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="问道长生">
+<link rel="manifest" href="./manifest.json">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+<title>问道长生</title>
+<style>
+:root {
+  --bg: #0f1419;
+  --bg2: #1a2332;
+  --bg3: #243447;
+  --fg: #e8dcc8;
+  --fg2: #b8a888;
+  --accent: #c9a84c;
+  --accent2: #8b6914;
+  --success: #4caf50;
+  --danger: #e74c3c;
+  --info: #3498db;
+  --border: #2a3a4a;
+  --panel: #162029;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px;
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+}
+#game-container {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+.title-bar {
+  text-align: center;
+  padding: 8px 0;
+}
+.title-bar h1 {
+  font-size: 22px;
+  color: var(--accent);
+  letter-spacing: 4px;
+}
+.title-bar .subtitle {
+  font-size: 12px;
+  color: var(--fg2);
+  margin-top: 2px;
+}
+.realm-display {
+  text-align: center;
+  padding: 10px 0;
+}
+.realm-display .realm-name {
+  font-size: 18px;
+  color: var(--accent);
+  font-weight: bold;
+}
+.realm-display .player-name {
+  font-size: 14px;
+  color: var(--fg2);
+  margin-top: 4px;
+}
+.progress-section {
+  margin-top: 8px;
+}
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--fg2);
+  margin-bottom: 4px;
+}
+.progress-bar-wrap {
+  background: var(--bg);
+  border-radius: 6px;
+  height: 18px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent2), var(--accent));
+  border-radius: 6px;
+  transition: width 0.3s ease;
+  min-width: 0;
+}
+.resources {
+  display: flex;
+  justify-content: space-around;
+  padding: 8px 0;
+}
+.resource-item {
+  text-align: center;
+}
+.resource-item .res-label {
+  font-size: 12px;
+  color: var(--fg2);
+}
+.resource-item .res-value {
+  font-size: 18px;
+  color: var(--accent);
+  font-weight: bold;
+  font-variant-numeric: tabular-nums;
+}
+.cultivate-area {
+  text-align: center;
+  padding: 10px 0;
+}
+.cultivate-rate {
+  font-size: 13px;
+  color: var(--fg2);
+  margin-bottom: 10px;
+}
+#cultivate-btn {
+  background: linear-gradient(180deg, #3a2a10, #2a1a08);
+  border: 2px solid var(--accent2);
+  color: var(--accent);
+  font-size: 20px;
+  padding: 16px 48px;
+  border-radius: 50px;
+  cursor: pointer;
+  letter-spacing: 6px;
+  font-weight: bold;
+  transition: transform 0.08s, box-shadow 0.2s;
+  user-select: none;
+  position: relative;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 56px;
+  min-width: 160px;
+}
+#cultivate-btn:hover {
+  box-shadow: 0 0 12px rgba(201,168,76,0.3);
+}
+#cultivate-btn:active {
+  transform: scale(0.95);
+}
+#cultivate-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.combo-display {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--info);
+  min-height: 20px;
+}
+.action-bar {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.action-btn {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.15s;
+  user-select: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 44px;
+  min-width: 64px;
+}
+.action-btn:hover {
+  background: var(--bg2);
+  border-color: var(--accent2);
+}
+.action-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.action-btn.highlight {
+  border-color: var(--accent);
+  color: var(--accent);
+  animation: pulse 1.2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 rgba(201,168,76,0); }
+  50% { box-shadow: 0 0 8px rgba(201,168,76,0.4); }
+}
+.log-panel {
+  max-height: 160px;
+  overflow-y: auto;
+  font-size: 12px;
+  line-height: 1.6;
+  padding: 8px 10px;
+}
+.log-panel .log-entry {
+  padding: 1px 0;
+  color: var(--fg2);
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+.log-panel .log-entry.log-warn { color: var(--danger); }
+.log-panel .log-entry.log-success { color: var(--success); }
+.log-panel .log-entry.log-info { color: var(--info); }
+.log-panel .log-entry.log-gold { color: var(--accent); }
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 16px;
+  padding-bottom: max(16px, env(safe-area-inset-bottom));
+}
+.modal-overlay.active { display: flex; }
+.modal-box {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 20px;
+}
+.modal-title {
+  font-size: 17px;
+  color: var(--accent);
+  margin-bottom: 14px;
+  text-align: center;
+}
+.modal-body { font-size: 14px; line-height: 1.7; }
+.modal-body p { margin-bottom: 8px; }
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+.modal-btn {
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg3);
+  color: var(--fg);
+  cursor: pointer;
+  font-size: 14px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 44px;
+  min-width: 80px;
+}
+.modal-btn.primary {
+  background: var(--accent2);
+  border-color: var(--accent);
+  color: var(--fg);
+}
+/* Lists in modals */
+.item-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg);
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  gap: 8px;
+}
+.item-row .item-info { flex: 1; min-width: 0; }
+.item-row .item-name { font-size: 14px; word-break: break-all; }
+.item-row .item-desc { font-size: 12px; color: var(--fg2); word-break: break-all; }
+.item-row .item-actions { display: flex; gap: 6px; flex-shrink: 0; flex-wrap: wrap; }
+.small-btn {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: var(--bg3);
+  color: var(--fg);
+  cursor: pointer;
+  font-size: 12px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 36px;
+}
+.small-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+/* Floating text */
+.float-text {
+  position: fixed;
+  pointer-events: none;
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--accent);
+  z-index: 200;
+  animation: floatUp 1s ease-out forwards;
+}
+@keyframes floatUp {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-40px); }
+}
+/* Offline panel special */
+.offline-stats {
+  text-align: center;
+  padding: 10px 0;
+}
+.offline-stats .big-number {
+  font-size: 28px;
+  color: var(--accent);
+  font-weight: bold;
+}
+.offline-stats .stat-label {
+  font-size: 12px;
+  color: var(--fg2);
+}
+/* Expedition timer */
+.expedition-timer {
+  text-align: center;
+  padding: 8px 0;
+  font-size: 14px;
+  color: var(--info);
+}
+/* Achievement popup */
+.achievement-popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--bg2);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  padding: 12px 16px;
+  z-index: 300;
+  transform: translateX(120%);
+  transition: transform 0.4s ease;
+  max-width: 280px;
+}
+.achievement-popup.show { transform: translateX(0); }
+.achievement-popup .ach-title { color: var(--accent); font-size: 14px; font-weight: bold; }
+.achievement-popup .ach-desc { color: var(--fg2); font-size: 12px; margin-top: 4px; }
+/* Settings */
+.settings-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.settings-row:last-child { border-bottom: none; }
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+/* Save code textarea */
+.save-code-area {
+  width: 100%;
+  background: var(--bg);
+  color: var(--fg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px;
+  font-family: monospace;
+  font-size: 12px;
+  resize: vertical;
+  min-height: 80px;
+  word-break: break-all;
+}
+/* Mobile responsive */
+@media (max-width: 400px) {
+  body { padding: 8px; }
+  .title-bar h1 { font-size: 18px; letter-spacing: 2px; }
+  .realm-display .realm-name { font-size: 16px; }
+  .resource-item .res-value { font-size: 16px; }
+  #cultivate-btn { font-size: 18px; padding: 14px 36px; min-height: 52px; }
+  .action-btn { padding: 10px 12px; font-size: 13px; min-height: 44px; }
+  .panel { padding: 10px 12px; }
+  .modal-box { padding: 16px; }
+  .modal-title { font-size: 16px; }
+  .modal-body { font-size: 13px; }
+}
+@media (max-width: 360px) {
+  .action-bar { gap: 6px; }
+  .action-btn { padding: 8px 10px; font-size: 12px; min-width: 56px; }
+  #cultivate-btn { font-size: 16px; padding: 12px 28px; letter-spacing: 4px; }
+}
+/* Prevent text selection on interactive elements */
+button, .action-btn, .modal-btn, .small-btn, #cultivate-btn {
+  -webkit-user-select: none;
+  user-select: none;
+}
+</style>
+</head>
+<body>
+<div id="game-container">
+  <div class="panel title-bar">
+    <h1>问道长生</h1>
+    <div class="subtitle">武侠修仙 · 文字放置挂机</div>
+  </div>
+
+  <div class="panel realm-display">
+    <div class="realm-name" id="realm-name">凡人 · 无名修士</div>
+    <div class="player-name" id="player-name">道号：无名修士</div>
+  </div>
+
+  <div class="panel progress-section">
+    <div class="progress-label">
+      <span>修为进度</span>
+      <span id="progress-text">0 / 100</span>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div class="panel resources">
+    <div class="resource-item">
+      <div class="res-label">修为</div>
+      <div class="res-value" id="res-cultivation">0</div>
+    </div>
+    <div class="resource-item">
+      <div class="res-label">灵石</div>
+      <div class="res-value" id="res-spiritstones">0</div>
+    </div>
+  </div>
+
+  <div class="panel cultivate-area">
+    <div class="cultivate-rate" id="cultivate-rate">修炼速度：+1.0 修为/秒</div>
+    <button id="cultivate-btn">打 坐</button>
+    <div class="combo-display" id="combo-display"></div>
+    <div class="expedition-timer" id="expedition-timer" style="display:none"></div>
+  </div>
+
+  <div class="panel action-bar">
+    <button class="action-btn" id="btn-breakthrough">突破</button>
+    <button class="action-btn" id="btn-expedition">历练</button>
+    <button class="action-btn" id="btn-techniques">功法</button>
+    <button class="action-btn" id="btn-achievements">成就</button>
+    <button class="action-btn" id="btn-settings">设置</button>
+  </div>
+
+  <div class="panel log-panel" id="log-panel"></div>
+</div>
+
+<!-- Modals -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal-box" id="modal-box">
+    <div class="modal-title" id="modal-title">标题</div>
+    <div class="modal-body" id="modal-body">内容</div>
+    <div class="modal-actions" id="modal-actions"></div>
+  </div>
+</div>
+
+<div class="achievement-popup" id="achievement-popup">
+  <div class="ach-title" id="ach-title">成就解锁</div>
+  <div class="ach-desc" id="ach-desc">描述</div>
+</div>
+
+<script>
+// ===================== CONSTANTS =====================
+const SAVE_KEY = "wendaocangsheng_save_v1";
+const CURRENT_VERSION = 1;
+const OFFLINE_CAP_SECONDS = 7200;
+const OFFLINE_MIN_SECONDS = 60;
+const MAX_COMBO = 50;
+const COMBO_WINDOW_MS = 2000;
+const MAX_SAFE_INT = Number.MAX_SAFE_INTEGER;
+const SAVE_INTERVAL_MS = 5000;
+const LOG_MAX = 50;
+const MAX_SPIRIT_STONES = 99999999;
+
+const REALMS = [
+  { name: "凡人", threshold: 0, desc: "凡尘俗世，未入仙途" },
+  { name: "练气期", threshold: 100, desc: "引气入体，初窥门径" },
+  { name: "筑基期", threshold: 500, desc: "筑就道基，稳固根基" },
+  { name: "金丹期", threshold: 2000, desc: "凝气成丹，法力大增" },
+  { name: "元婴期", threshold: 10000, desc: "元婴初成，神识外放" },
+  { name: "化神期", threshold: 50000, desc: "化神之境，天人合一" },
+  { name: "炼虚期", threshold: 200000, desc: "炼虚合道，虚空造物" },
+  { name: "合体期", threshold: 1000000, desc: "合体归真，万法归一" },
+  { name: "大乘期", threshold: 5000000, desc: "大乘圆满，半步飞升" },
+  { name: "渡劫期", threshold: 20000000, desc: "渡劫成仙，问道长生" },
+  { name: "真仙", threshold: 100000000, desc: "渡劫功成，位列仙班" },
+  { name: "金仙", threshold: 500000000, desc: "金仙不灭，与道同存" }
+];
+
+const TECHNIQUE_NAMES = [
+  "吐纳心法","引气诀","小周天功","凝气术","炼精化气","紫霞功","太玄经","逍遥游","九阳真经","太阴宝典",
+  "太上感应篇","黄庭经","参同契","悟真篇","入药镜","金丹四百字","玄牝之门","守一诀","心斋坐忘","导引术",
+  "五禽戏","八段锦","易筋经","洗髓经","金刚不坏","般若心经","大日如来","须弥芥子","混沌初开","无极生太极"
+];
+
+const TECHNIQUE_QUALITIES = [
+  { name: "凡品", color: "#aaaaaa", minBonus: 0.10, maxBonus: 0.20, weight: 50 },
+  { name: "良品", color: "#4caf50", minBonus: 0.20, maxBonus: 0.35, weight: 30 },
+  { name: "上品", color: "#3498db", minBonus: 0.35, maxBonus: 0.55, weight: 15 },
+  { name: "珍品", color: "#9b59b6", minBonus: 0.55, maxBonus: 0.80, weight: 4 },
+  { name: "绝品", color: "#e67e22", minBonus: 0.80, maxBonus: 1.20, weight: 1 },
+  { name: "仙品", color: "#f5d76e", minBonus: 1.50, maxBonus: 2.00, weight: 3, minRealm: 10 },
+  { name: "圣品", color: "#ff6b81", minBonus: 2.50, maxBonus: 3.00, weight: 2, minRealm: 11 }
+];
+
+// 高境界专属功法：突破至对应境界时必定获得一部（唯一）
+const SPECIAL_TECHNIQUES = [
+  { realm: 10, name: "大道归根篇", qualityIdx: 5, qualityName: "仙品", color: "#f5d76e", minBonus: 1.60, maxBonus: 1.90, desc: "真仙感悟，大道本源归于一炉" },
+  { realm: 11, name: "鸿蒙造化诀", qualityIdx: 6, qualityName: "圣品", color: "#ff6b81", minBonus: 2.60, maxBonus: 3.00, desc: "金仙传承，一念造化乾坤" }
+];
+
+const EXPEDITION_MAPS = [
+  { id: "map_001", name: "青云山脉", cost: 50, duration: 60, minCult: 50, maxCult: 150, minStone: 10, maxStone: 30, desc: "灵气稀薄，偶有灵草" },
+  { id: "map_002", name: "幽谷秘境", cost: 150, duration: 120, minCult: 200, maxCult: 600, minStone: 30, maxStone: 100, desc: "阴煞弥漫，暗藏机缘", unlockRealm: 2 },
+  { id: "map_003", name: "古战场遗迹", cost: 400, duration: 180, minCult: 800, maxCult: 2500, minStone: 100, maxStone: 300, desc: "上古遗宝，凶险万分", unlockRealm: 3 },
+  { id: "map_004", name: "仙山福地", cost: 1000, duration: 300, minCult: 3000, maxCult: 10000, minStone: 300, maxStone: 800, desc: "仙气缭绕，大道可期", unlockRealm: 5 }
+];
+
+const ACHIEVEMENTS_DEF = [
+  { id: "first_break", name: "初窥门径", desc: "完成第一次境界突破", condition: (s) => s.realmState.totalBreakthroughs >= 1 },
+  { id: "realm_3", name: "金丹大道", desc: "突破至金丹期", condition: (s) => s.player.realm >= 3 },
+  { id: "realm_5", name: "化神之境", desc: "突破至化神期", condition: (s) => s.player.realm >= 5 },
+  { id: "realm_9", name: "渡劫飞升", desc: "突破至渡劫期", condition: (s) => s.player.realm >= 9 },
+  { id: "realm_10", name: "位列仙班", desc: "突破至真仙之境", condition: (s) => s.player.realm >= 10 },
+  { id: "realm_11", name: "金仙不灭", desc: "突破至金仙之境", condition: (s) => s.player.realm >= 11 },
+  { id: "tech_1", name: "功法入门", desc: "获得第一本功法", condition: (s) => s.techniques.owned.length >= 1 },
+  { id: "tech_5", name: "博览群书", desc: "收集5本功法", condition: (s) => s.techniques.owned.length >= 5 },
+  { id: "tech_10", name: "功法大师", desc: "收集10本功法", condition: (s) => s.techniques.owned.length >= 10 },
+  { id: "click_100", name: "勤修不辍", desc: "手动打坐100次", condition: (s) => (s.achievements.counters.totalClicks || 0) >= 100 },
+  { id: "click_1000", name: "苦修千年", desc: "手动打坐1000次", condition: (s) => (s.achievements.counters.totalClicks || 0) >= 1000 },
+  { id: "expedition_10", name: "历练老手", desc: "完成10次历练", condition: (s) => (s.achievements.counters.totalExpeditions || 0) >= 10 },
+  { id: "offline_1h", name: "闭关修炼", desc: "离线收益达到1小时", condition: (s) => (s.achievements.counters.maxOfflineMinutes || 0) >= 60 },
+  { id: "wealthy", name: "富甲一方", desc: "拥有10000灵石", condition: (s) => s.player.spiritStones >= 10000 },
+  { id: "combo_50", name: "天人合一", desc: "达成50连击", condition: (s) => (s.achievements.counters.maxCombo || 0) >= 50 }
+];
+
+const QI_DESCRIPTORS = [
+  "真气运转","灵气汇聚","周天循环","经脉通畅","丹田发热","百会通明",
+  "涌泉穴开","任督二脉","三花聚顶","五气朝元","紫气东来","金光护体"
+];
+
+// ===================== STATE =====================
+function createInitialState() {
+  const now = Date.now();
+  return {
+    version: CURRENT_VERSION,
+    meta: { createdAt: now, lastSaveAt: now, lastOnlineAt: now, playTimeSeconds: 0 },
+    player: { name: "无名修士", realm: 0, cultivation: 0, spiritStones: 0, comboCount: 0, lastComboAt: 0 },
+    combatStats: { baseRate: 1.0, realmMultiplier: 1.0, techniqueMultiplier: 1.0, equipmentMultiplier: 1.0, weakenFactor: 1.0, effectiveRate: 1.0 },
+    realmState: { breakthroughAttempts: 0, weakenUntil: 0, totalBreakthroughs: 0 },
+    techniques: { owned: [], equipped: [null, null, null], maxSlots: 1 },
+    equipments: { owned: [], equipped: [null, null, null, null], maxSlots: 1 },
+    expedition: { active: false, startTime: 0, mapId: "map_001", duration: 60, claimed: true, notified: false },
+    achievements: { unlocked: [], counters: { totalClicks: 0, totalExpeditions: 0, maxCombo: 0, maxOfflineMinutes: 0 } },
+    logBuffer: [],
+    settings: { nameChanged: false },
+    pendingOfflineReward: null
+  };
+}
+
+let state = createInitialState();
+let lastTick = Date.now();
+let saveTimer = null;
+let logEl = null;
+let modalOpen = false;
+
+// ===================== UTILS =====================
+function fmtNum(n) {
+  if (n >= 1e12) return (n/1e12).toFixed(2) + "万亿";
+  if (n >= 1e8) return (n/1e8).toFixed(2) + "亿";
+  if (n >= 1e4) return (n/1e4).toFixed(2) + "万";
+  return Math.floor(n).toLocaleString();
+}
+function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
+function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+function randFloat(min, max) { return Math.random() * (max - min) + min; }
+
+// ===================== LOGGER =====================
+function addLog(msg, type="") {
+  state.logBuffer.push({ msg, type, time: Date.now() });
+  if (state.logBuffer.length > LOG_MAX) state.logBuffer.shift();
+  renderLog();
+}
+function renderLog() {
+  if (!logEl) return;
+  logEl.innerHTML = state.logBuffer.map(e => `<div class="log-entry log-${e.type}">${escapeHtml(e.msg)}</div>`).join("");
+  logEl.scrollTop = logEl.scrollHeight;
+}
+function escapeHtml(t) {
+  const d = document.createElement("div");
+  d.textContent = t;
+  return d.innerHTML;
+}
+
+// ===================== SAVE / LOAD =====================
+function saveGame() {
+  try {
+    state.meta.lastSaveAt = Date.now();
+    state.meta.lastOnlineAt = Date.now();
+    localStorage.setItem(SAVE_KEY, JSON.stringify(state));
+    return true;
+  } catch (e) {
+    console.warn("存档失败:", e);
+    addLog("存档失败：浏览器存储空间不足，建议导出存档备份", "warn");
+    return false;
+  }
+}
+function loadGame() {
+  try {
+    const raw = localStorage.getItem(SAVE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object") return null;
+    if (!parsed.version) parsed.version = 1;
+    const init = createInitialState();
+    function deepMerge(target, source) {
+      for (const k in source) {
+        if (source[k] !== null && typeof source[k] === "object" && !Array.isArray(source[k])) {
+          if (!target[k] || typeof target[k] !== "object") target[k] = {};
+          deepMerge(target[k], source[k]);
+        } else {
+          target[k] = source[k];
+        }
+      }
+    }
+    deepMerge(init, parsed);
+    // Ensure arrays are correct length
+    while (init.techniques.equipped.length < 3) init.techniques.equipped.push(null);
+    while (init.equipments.equipped.length < 4) init.equipments.equipped.push(null);
+    // Ensure expedition has notified field (migration from old saves)
+    if (init.expedition && typeof init.expedition.notified === "undefined") {
+      init.expedition.notified = false;
+    }
+    // Ensure pendingOfflineReward exists (migration from old saves)
+    if (typeof init.pendingOfflineReward === "undefined") {
+      init.pendingOfflineReward = null;
+    }
+    // Sanitize
+    init.player.cultivation = Math.max(0, Math.min(MAX_SAFE_INT, init.player.cultivation || 0));
+    init.player.spiritStones = clamp(init.player.spiritStones || 0, 0, MAX_SPIRIT_STONES);
+    init.player.realm = clamp(init.player.realm || 0, 0, REALMS.length - 1);
+    return init;
+  } catch (e) {
+    console.warn("读档失败:", e);
+    return null;
+  }
+}
+function resetGame() {
+  localStorage.removeItem(SAVE_KEY);
+  state = createInitialState();
+  lastTick = Date.now();
+  addLog("道心破碎，从头再来...", "warn");
+  recalcAll();
+  renderAll();
+  saveGame();
+}
+
+// ===================== SAVE EXPORT / IMPORT =====================
+function exportSaveToCode() {
+  try {
+    const json = JSON.stringify(state);
+    const code = btoa(unescape(encodeURIComponent(json)));
+    return code;
+  } catch (e) {
+    console.warn("导出存档失败:", e);
+    return "";
+  }
+}
+function importSaveFromCode(code) {
+  try {
+    if (!code || !code.trim()) {
+      addLog("存档码为空，导入失败", "warn");
+      return false;
+    }
+    const json = decodeURIComponent(escape(atob(code.trim())));
+    const parsed = JSON.parse(json);
+    if (!parsed || typeof parsed !== "object" || !parsed.version) {
+      addLog("存档码格式不正确", "warn");
+      return false;
+    }
+    // Validate key structures
+    if (!parsed.player || !parsed.meta || !parsed.techniques) {
+      addLog("存档码数据不完整", "warn");
+      return false;
+    }
+    // Load via deep merge same as loadGame
+    const init = createInitialState();
+    function deepMerge(target, source) {
+      for (const k in source) {
+        if (source[k] !== null && typeof source[k] === "object" && !Array.isArray(source[k])) {
+          if (!target[k] || typeof target[k] !== "object") target[k] = {};
+          deepMerge(target[k], source[k]);
+        } else {
+          target[k] = source[k];
+        }
+      }
+    }
+    deepMerge(init, parsed);
+    while (init.techniques.equipped.length < 3) init.techniques.equipped.push(null);
+    while (init.equipments.equipped.length < 4) init.equipments.equipped.push(null);
+    if (init.expedition && typeof init.expedition.notified === "undefined") init.expedition.notified = false;
+    if (typeof init.pendingOfflineReward === "undefined") init.pendingOfflineReward = null;
+    init.player.cultivation = Math.max(0, Math.min(MAX_SAFE_INT, init.player.cultivation || 0));
+    init.player.spiritStones = clamp(init.player.spiritStones || 0, 0, MAX_SPIRIT_STONES);
+    init.player.realm = clamp(init.player.realm || 0, 0, REALMS.length - 1);
+    init.meta.lastOnlineAt = Date.now();
+    init.pendingOfflineReward = null;
+
+    state = init;
+    lastTick = Date.now();
+    recalcAll();
+    renderAll();
+    renderLog();
+    saveGame();
+    addLog("存档导入成功，欢迎回来，" + state.player.name, "success");
+    checkAchievements();
+    return true;
+  } catch (e) {
+    console.warn("导入存档失败:", e);
+    addLog("存档导入失败：存档码损坏或格式错误", "warn");
+    return false;
+  }
+}
+function copyExportCode() {
+  const code = exportSaveToCode();
+  if (!code) {
+    addLog("导出失败，请重试", "warn");
+    return;
+  }
+  const el = document.getElementById("export-code-area");
+  if (el) {
+    el.value = code;
+    el.select();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(code).then(() => {
+        addLog("存档码已复制到剪贴板", "success");
+      }).catch(() => {
+        addLog("存档码已填入文本框，请手动复制", "info");
+      });
+    } else {
+      addLog("存档码已填入文本框，请手动复制", "info");
+    }
+  }
+}
+function doImportSave() {
+  const el = document.getElementById("import-code-area");
+  if (!el) return;
+  const code = el.value.trim();
+  if (importSaveFromCode(code)) {
+    closeModal();
+  }
+}
+
+// ===================== COMBAT STATS =====================
+function recalcCombatStats() {
+  const p = state.player;
+  const s = state.combatStats;
+  s.baseRate = 1.0;
+  s.realmMultiplier = Math.pow(1.5, p.realm);
+  let techMult = 1.0;
+  for (const tid of state.techniques.equipped) {
+    if (!tid) continue;
+    const t = state.techniques.owned.find(x => x.id === tid);
+    if (t) techMult += t.bonus;
+  }
+  s.techniqueMultiplier = techMult;
+  s.equipmentMultiplier = 1.0;
+  const now = Date.now();
+  s.weakenFactor = (now < state.realmState.weakenUntil) ? 0.5 : 1.0;
+  s.effectiveRate = s.baseRate * s.realmMultiplier * s.techniqueMultiplier * s.equipmentMultiplier * s.weakenFactor;
+}
+
+function getNextRealmThreshold() {
+  const next = state.player.realm + 1;
+  if (next >= REALMS.length) return Infinity;
+  return REALMS[next].threshold;
+}
+function getRealmName(realmIdx) {
+  if (realmIdx < 0 || realmIdx >= REALMS.length) return "未知";
+  return REALMS[realmIdx].name;
+}
+
+function recalcAll() {
+  recalcCombatStats();
+  // Update max slots based on realm
+  state.techniques.maxSlots = 1 + (state.player.realm >= 4 ? 1 : 0) + (state.player.realm >= 7 ? 1 : 0);
+}
+
+// ===================== CULTIVATION =====================
+function doAutoCultivate(deltaSeconds) {
+  if (state.player.cultivation >= MAX_SAFE_INT) return;
+  const gain = state.combatStats.effectiveRate * deltaSeconds;
+  state.player.cultivation = Math.min(MAX_SAFE_INT, state.player.cultivation + gain);
+}
+
+function doManualCultivate() {
+  const now = Date.now();
+  const p = state.player;
+  // Combo logic
+  if (now - p.lastComboAt <= COMBO_WINDOW_MS) {
+    p.comboCount = Math.min(MAX_COMBO, p.comboCount + 1);
+  } else {
+    p.comboCount = 1;
+  }
+  p.lastComboAt = now;
+  state.achievements.counters.totalClicks = (state.achievements.counters.totalClicks || 0) + 1;
+  if (p.comboCount > (state.achievements.counters.maxCombo || 0)) {
+    state.achievements.counters.maxCombo = p.comboCount;
+  }
+  // P2-1 Fix: cap combo bonus at 5% (50 combo * 0.001 = 0.05)
+  const comboBonus = 1 + Math.min(0.05, p.comboCount * 0.001);
+  const baseClick = state.combatStats.effectiveRate * 10;
+  const gain = baseClick * comboBonus;
+  if (p.cultivation < MAX_SAFE_INT) {
+    p.cultivation = Math.min(MAX_SAFE_INT, p.cultivation + gain);
+  }
+  // Floating text
+  showFloatText(`修为 +${fmtNum(gain)}`, p.comboCount >= 10 ? "#e67e22" : "#c9a84c");
+  // Log occasionally
+  if (p.comboCount % 10 === 0 || p.comboCount === 1) {
+    const desc = QI_DESCRIPTORS[randInt(0, QI_DESCRIPTORS.length - 1)];
+    const bonusPct = ((comboBonus - 1) * 100).toFixed(1);
+    addLog(`${desc}，修为 +${fmtNum(gain)}${p.comboCount > 1 ? " （连击x"+p.comboCount+" +"+bonusPct+"%）" : ""}`, "gold");
+  }
+  checkAchievements();
+  recalcAll();
+  renderAll();
+  debouncedSave();
+}
+
+function showFloatText(text, color) {
+  const btn = document.getElementById("cultivate-btn");
+  if (!btn) return;
+  const rect = btn.getBoundingClientRect();
+  const el = document.createElement("div");
+  el.className = "float-text";
+  el.textContent = text;
+  el.style.color = color || "#c9a84c";
+  el.style.left = (rect.left + rect.width/2 + randInt(-30, 30)) + "px";
+  el.style.top = (rect.top - 10) + "px";
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 1000);
+}
+
+let saveDebounceTimer = null;
+function debouncedSave() {
+  if (saveDebounceTimer) clearTimeout(saveDebounceTimer);
+  saveDebounceTimer = setTimeout(() => saveGame(), 500);
+}
+
+// ===================== REALM BREAKTHROUGH =====================
+function getSuccessRate() {
+  const r = state.player.realm;
+  if (r <= 1) return 1.0;
+  const base = Math.max(0.6, 1.0 - (r - 1) * 0.05);
+  const bonus = state.realmState.breakthroughAttempts * 0.10;
+  return Math.min(1.0, base + bonus);
+}
+function getBreakthroughCost() {
+  return 100 * (state.player.realm + 1);
+}
+function canBreakthrough() {
+  return state.player.cultivation >= getNextRealmThreshold() && state.player.realm < REALMS.length - 1 && Date.now() >= state.realmState.weakenUntil;
+}
+function attemptBreakthrough(useStones) {
+  if (!canBreakthrough()) return;
+  const cost = getBreakthroughCost();
+  if (useStones && state.player.spiritStones < cost) {
+    addLog("灵石不足，无法辅助突破", "warn");
+    return;
+  }
+  if (useStones) {
+    state.player.spiritStones -= cost;
+    state.realmState.breakthroughAttempts += 1;
+  }
+  const rate = getSuccessRate();
+  const success = Math.random() < rate;
+  if (success) {
+    state.player.realm += 1;
+    state.realmState.totalBreakthroughs += 1;
+    state.realmState.breakthroughAttempts = 0;
+    const rewardStones = 50 * state.player.realm;
+    state.player.spiritStones = Math.min(MAX_SPIRIT_STONES, state.player.spiritStones + rewardStones);
+    addLog(`突破成功！踏入「${getRealmName(state.player.realm)}」之境！灵石 +${rewardStones}`, "success");
+    // Grant technique on breakthrough
+    grantRandomTechnique();
+    // 高境界专属功法：突破至真仙/金仙时必定获得一部（唯一，不重复）
+    const special = SPECIAL_TECHNIQUES.find(t => t.realm === state.player.realm);
+    if (special && !state.techniques.owned.some(t => t.name === special.name)) {
+      const bonus = parseFloat(randFloat(special.minBonus, special.maxBonus).toFixed(3));
+      state.techniques.owned.push({
+        id: "t_" + Date.now() + "_" + randInt(1000,9999),
+        name: special.name,
+        quality: special.qualityIdx,
+        qualityName: special.qualityName,
+        color: special.color,
+        bonus: bonus,
+        obtainedAt: Date.now()
+      });
+      addLog(`仙缘加身！获得 [${special.qualityName}]《${special.name}》修炼效率 +${(bonus*100).toFixed(1)}%（${special.desc}）`, "gold");
+    }
+    // Reset combo
+    state.player.comboCount = 0;
+  } else {
+    state.realmState.weakenUntil = Date.now() + 30000;
+    state.realmState.breakthroughAttempts += 1;
+    addLog("突破失败，真气逆行，进入虚弱状态（30秒）", "warn");
+  }
+  recalcAll();
+  renderAll();
+  checkAchievements();
+  saveGame();
+}
+
+// ===================== TECHNIQUES =====================
+function generateTechnique() {
+  // 高阶品质（仙品/圣品）按境界门槛解锁：未达境界不参与随机掉落
+  const weights = TECHNIQUE_QUALITIES.map((q) => {
+    if (q.minRealm !== undefined) return state.player.realm >= q.minRealm ? q.weight : 0;
+    return q.weight;
+  });
+  const totalWeight = weights.reduce((a, b) => a + b, 0);
+  let r = Math.random() * totalWeight;
+  let qualityIdx = 0;
+  for (let i=0;i<TECHNIQUE_QUALITIES.length;i++) {
+    r -= weights[i];
+    if (r <= 0) { qualityIdx = i; break; }
+  }
+  const q = TECHNIQUE_QUALITIES[qualityIdx];
+  const name = TECHNIQUE_NAMES[randInt(0, TECHNIQUE_NAMES.length - 1)];
+  const bonus = randFloat(q.minBonus, q.maxBonus);
+  const id = "t_" + Date.now() + "_" + randInt(1000,9999);
+  return { id, name, quality: qualityIdx, qualityName: q.name, color: q.color, bonus: parseFloat(bonus.toFixed(3)), obtainedAt: Date.now() };
+}
+function grantRandomTechnique() {
+  const tech = generateTechnique();
+  state.techniques.owned.push(tech);
+  addLog(`获得 [${tech.qualityName}]《${tech.name}》修炼效率 +${(tech.bonus*100).toFixed(1)}%`, "success");
+}
+function equipTechnique(techId, slotIdx) {
+  if (slotIdx >= state.techniques.maxSlots) {
+    addLog("功法槽位未解锁", "warn");
+    return;
+  }
+  const tech = state.techniques.owned.find(t => t.id === techId);
+  if (!tech) return;
+  // Unequip from other slots if already equipped
+  for (let i=0;i<state.techniques.equipped.length;i++) {
+    if (state.techniques.equipped[i] === techId) state.techniques.equipped[i] = null;
+  }
+  state.techniques.equipped[slotIdx] = techId;
+  recalcAll();
+  renderAll();
+  saveGame();
+}
+function unequipTechnique(slotIdx) {
+  state.techniques.equipped[slotIdx] = null;
+  recalcAll();
+  renderAll();
+  saveGame();
+}
+
+// ===================== EXPEDITION =====================
+function getAvailableMaps() {
+  return EXPEDITION_MAPS.filter(m => !m.unlockRealm || state.player.realm >= m.unlockRealm);
+}
+function startExpedition(mapId) {
+  if (state.expedition.active) {
+    addLog("已有历练正在进行中", "warn");
+    return;
+  }
+  const map = EXPEDITION_MAPS.find(m => m.id === mapId);
+  if (!map) return;
+  if (state.player.spiritStones < map.cost) {
+    addLog("灵石不足，无法派遣历练", "warn");
+    return;
+  }
+  state.player.spiritStones -= map.cost;
+  state.expedition.active = true;
+  state.expedition.startTime = Date.now();
+  state.expedition.mapId = mapId;
+  state.expedition.duration = map.duration;
+  state.expedition.claimed = false;
+  state.expedition.notified = false;
+  addLog(`派遣历练：${map.name}，预计${map.duration}秒后返回`, "info");
+  recalcAll();
+  renderAll();
+  saveGame();
+}
+function checkExpeditionComplete() {
+  if (!state.expedition.active || state.expedition.claimed) return false;
+  const elapsed = (Date.now() - state.expedition.startTime) / 1000;
+  return elapsed >= state.expedition.duration;
+}
+function claimExpedition() {
+  if (!state.expedition.active) return;
+  const elapsed = (Date.now() - state.expedition.startTime) / 1000;
+  if (elapsed < state.expedition.duration) {
+    addLog("历练尚未完成", "warn");
+    return;
+  }
+  const map = EXPEDITION_MAPS.find(m => m.id === state.expedition.mapId);
+  if (!map) return;
+  const cultGain = randInt(map.minCult, map.maxCult);
+  const stoneGain = randInt(map.minStone, map.maxStone);
+  state.player.cultivation = Math.min(MAX_SAFE_INT, state.player.cultivation + cultGain);
+  state.player.spiritStones = Math.min(MAX_SPIRIT_STONES, state.player.spiritStones + stoneGain);
+  state.expedition.active = false;
+  state.expedition.claimed = true;
+  state.expedition.notified = false;
+  state.achievements.counters.totalExpeditions = (state.achievements.counters.totalExpeditions || 0) + 1;
+  addLog(`历练归来！获得修为 +${fmtNum(cultGain)}，灵石 +${stoneGain}`, "success");
+  // Chance for technique
+  if (Math.random() < 0.3) {
+    grantRandomTechnique();
+  }
+  checkAchievements();
+  recalcAll();
+  renderAll();
+  saveGame();
+}
+function getExpeditionRemaining() {
+  if (!state.expedition.active || state.expedition.claimed) return 0;
+  const elapsed = (Date.now() - state.expedition.startTime) / 1000;
+  return Math.max(0, state.expedition.duration - elapsed);
+}
+
+// ===================== OFFLINE REWARDS =====================
+function calcOfflineRewards() {
+  const now = Date.now();
+  const offlineSeconds = Math.max(0, (now - state.meta.lastOnlineAt) / 1000);
+  if (offlineSeconds < OFFLINE_MIN_SECONDS) return null;
+  const capped = Math.min(offlineSeconds, OFFLINE_CAP_SECONDS);
+  recalcCombatStats();
+  const cultGain = state.combatStats.effectiveRate * capped;
+  const stoneGain = cultGain * 0.1;
+  const hours = Math.floor(offlineSeconds / 3600);
+  const mins = Math.floor((offlineSeconds % 3600) / 60);
+  return {
+    offlineSeconds,
+    cappedSeconds: capped,
+    cultivationGain: cultGain,
+    spiritStoneGain: stoneGain,
+    timeText: hours > 0 ? `${hours}小时${mins}分钟` : `${mins}分钟`,
+    capped: offlineSeconds > OFFLINE_CAP_SECONDS
+  };
+}
+function claimOfflineRewards() {
+  // P0-1 Fix: use pending reward cached at show time; fall back to calc for safety
+  const rewards = state.pendingOfflineReward || calcOfflineRewards();
+  if (!rewards) return;
+  state.player.cultivation = Math.min(MAX_SAFE_INT, state.player.cultivation + rewards.cultivationGain);
+  state.player.spiritStones = Math.min(MAX_SPIRIT_STONES, state.player.spiritStones + rewards.spiritStoneGain);
+  state.meta.lastOnlineAt = Date.now();
+  state.pendingOfflineReward = null;
+  const mins = Math.floor(rewards.offlineSeconds / 60);
+  if (mins > (state.achievements.counters.maxOfflineMinutes || 0)) {
+    state.achievements.counters.maxOfflineMinutes = mins;
+  }
+  addLog(`闭关结束，修为 +${fmtNum(rewards.cultivationGain)}，灵石 +${fmtNum(rewards.spiritStoneGain)}`, "success");
+  checkAchievements();
+  recalcAll();
+  renderAll();
+  saveGame();
+}
+
+// ===================== ACHIEVEMENTS =====================
+function checkAchievements() {
+  for (const ach of ACHIEVEMENTS_DEF) {
+    if (state.achievements.unlocked.includes(ach.id)) continue;
+    if (ach.condition(state)) {
+      state.achievements.unlocked.push(ach.id);
+      showAchievementPopup(ach.name, ach.desc);
+      addLog(`【成就解锁】${ach.name}：${ach.desc}`, "success");
+    }
+  }
+}
+function showAchievementPopup(title, desc) {
+  const el = document.getElementById("achievement-popup");
+  document.getElementById("ach-title").textContent = "成就解锁：" + title;
+  document.getElementById("ach-desc").textContent = desc;
+  el.classList.add("show");
+  setTimeout(() => el.classList.remove("show"), 3000);
+}
+
+// ===================== UI RENDER =====================
+function renderAll() {
+  const p = state.player;
+  const nextThresh = getNextRealmThreshold();
+  document.getElementById("realm-name").textContent = `${getRealmName(p.realm)} · ${p.name}`;
+  document.getElementById("player-name").textContent = `道号：${p.name}`;
+  document.getElementById("res-cultivation").textContent = fmtNum(Math.floor(p.cultivation));
+  document.getElementById("res-spiritstones").textContent = fmtNum(p.spiritStones);
+  const progressPct = nextThresh === Infinity ? 100 : Math.min(100, (p.cultivation / nextThresh) * 100);
+  document.getElementById("progress-fill").style.width = progressPct + "%";
+  document.getElementById("progress-text").textContent = nextThresh === Infinity
+    ? `${fmtNum(Math.floor(p.cultivation))} / \u221e`
+    : `${fmtNum(Math.floor(p.cultivation))} / ${fmtNum(nextThresh)}`;
+  const rateText = `修炼速度：+${state.combatStats.effectiveRate.toFixed(1)} 修为/秒` +
+    (state.combatStats.weakenFactor < 1 ? " （虚弱中）" : "") +
+    ` [境界\u00d7${state.combatStats.realmMultiplier.toFixed(2)} 功法\u00d7${state.combatStats.techniqueMultiplier.toFixed(2)}]`;
+  document.getElementById("cultivate-rate").textContent = rateText;
+  const comboEl = document.getElementById("combo-display");
+  if (p.comboCount > 1) {
+    const bonusPct = (Math.min(0.05, p.comboCount * 0.001) * 100).toFixed(1);
+    comboEl.textContent = `连击 x${p.comboCount} （+${bonusPct}%）`;
+  } else {
+    comboEl.textContent = "";
+  }
+  // Breakthrough button
+  const btnBreak = document.getElementById("btn-breakthrough");
+  if (canBreakthrough()) {
+    btnBreak.disabled = false;
+    btnBreak.classList.add("highlight");
+  } else {
+    btnBreak.disabled = true;
+    btnBreak.classList.remove("highlight");
+  }
+  // Expedition timer
+  const expTimer = document.getElementById("expedition-timer");
+  if (state.expedition.active && !state.expedition.claimed) {
+    const rem = getExpeditionRemaining();
+    if (rem > 0) {
+      expTimer.style.display = "block";
+      expTimer.textContent = `历练中... ${Math.ceil(rem)}秒后返回`;
+    } else {
+      expTimer.style.display = "block";
+      expTimer.textContent = "历练已完成，请领取奖励";
+    }
+  } else {
+    expTimer.style.display = "none";
+  }
+}
+
+// ===================== MODALS =====================
+function openModal(title, bodyHtml, actionsHtml) {
+  document.getElementById("modal-title").textContent = title;
+  document.getElementById("modal-body").innerHTML = bodyHtml;
+  document.getElementById("modal-actions").innerHTML = actionsHtml || "";
+  document.getElementById("modal-overlay").classList.add("active");
+  modalOpen = true;
+}
+function closeModal() {
+  document.getElementById("modal-overlay").classList.remove("active");
+  modalOpen = false;
+}
+
+// Breakthrough modal
+function showBreakthroughModal() {
+  if (!canBreakthrough()) return;
+  const rate = getSuccessRate();
+  const cost = getBreakthroughCost();
+  const body = `
+    <p>当前境界：<strong>${getRealmName(state.player.realm)}</strong></p>
+    <p>下一境界：<strong>${getRealmName(state.player.realm+1)}</strong></p>
+    <p>突破成功率：<strong>${(rate*100).toFixed(0)}%</strong></p>
+    <p>辅助突破消耗：<strong>${cost} 灵石</strong>（成功率 +10%）</p>
+    <p>已尝试次数：${state.realmState.breakthroughAttempts}</p>
+  `;
+  const actions = `
+    <button class="modal-btn primary" id="btn-bt-normal">直接突破</button>
+    <button class="modal-btn primary" id="btn-bt-stone" ${state.player.spiritStones < cost ? "disabled" : ""}>辅助突破 (-${cost}灵石)</button>
+    <button class="modal-btn" onclick="closeModal()">取消</button>
+  `;
+  openModal("境界突破", body, actions);
+  setTimeout(() => {
+    document.getElementById("btn-bt-normal")?.addEventListener("click", () => { attemptBreakthrough(false); closeModal(); });
+    document.getElementById("btn-bt-stone")?.addEventListener("click", () => { attemptBreakthrough(true); closeModal(); });
+  }, 0);
+}
+
+// Expedition modal
+function showExpeditionModal() {
+  let body = '<div class="item-list">';
+  for (const map of getAvailableMaps()) {
+    const canAfford = state.player.spiritStones >= map.cost;
+    const isActive = state.expedition.active && state.expedition.mapId === map.id && !state.expedition.claimed;
+    const canClaim = isActive && getExpeditionRemaining() <= 0;
+    body += `
+      <div class="item-row">
+        <div class="item-info">
+          <div class="item-name" style="color:${canAfford?'var(--fg)':'var(--danger)'}">${map.name}</div>
+          <div class="item-desc">${map.desc} \u00b7 消耗 ${map.cost} 灵石 \u00b7 ${map.duration}秒</div>
+        </div>
+        <div class="item-actions">
+          ${canClaim
+            ? `<button class="small-btn" onclick="claimExpedition();closeModal();">领取</button>`
+            : isActive
+              ? `<button class="small-btn" disabled>进行中</button>`
+              : `<button class="small-btn" onclick="startExpedition('${map.id}');closeModal();" ${canAfford?"":"disabled"}>派遣</button>`
+          }
+        </div>
+      </div>
+    `;
+  }
+  body += '</div>';
+  openModal("历练派遣", body, '<button class="modal-btn" onclick="closeModal()">关闭</button>');
+}
+
+// Techniques modal
+function showTechniquesModal() {
+  let body = '<p>已装备功法（槽位 ' + state.techniques.maxSlots + '/3）：</p>';
+  body += '<div class="item-list">';
+  for (let i = 0; i < 3; i++) {
+    const tid = state.techniques.equipped[i];
+    if (tid) {
+      const t = state.techniques.owned.find(x => x.id === tid);
+      if (t) {
+        body += `
+          <div class="item-row">
+            <div class="item-info">
+              <div class="item-name" style="color:${t.color}">[${t.qualityName}]《${t.name}》</div>
+              <div class="item-desc">修炼效率 +${(t.bonus*100).toFixed(1)}%</div>
+            </div>
+            <div class="item-actions">
+              <button class="small-btn" onclick="unequipTechnique(${i});showTechniquesModal();">卸下</button>
+            </div>
+          </div>
+        `;
+      }
+    } else if (i < state.techniques.maxSlots) {
+      body += `<div class="item-row"><div class="item-info"><div class="item-name" style="color:var(--fg2)">（空槽位）</div></div></div>`;
+    } else {
+      body += `<div class="item-row"><div class="item-info"><div class="item-name" style="color:var(--fg2)">（未解锁）</div></div></div>`;
+    }
+  }
+  body += '</div>';
+  body += '<p style="margin-top:12px">已收集功法：</p><div class="item-list">';
+  for (const t of state.techniques.owned) {
+    const isEquipped = state.techniques.equipped.includes(t.id);
+    body += `
+      <div class="item-row">
+        <div class="item-info">
+          <div class="item-name" style="color:${t.color}">[${t.qualityName}]《${t.name}》</div>
+          <div class="item-desc">修炼效率 +${(t.bonus*100).toFixed(1)}%${isEquipped ? " （已装备）" : ""}</div>
+        </div>
+        <div class="item-actions">
+          ${!isEquipped ? `
+            <button class="small-btn" onclick="equipTechnique('${t.id}',0);showTechniquesModal();" ${state.techniques.equipped[0]?"":""}>装备1</button>
+            <button class="small-btn" onclick="equipTechnique('${t.id}',1);showTechniquesModal();">装备2</button>
+            <button class="small-btn" onclick="equipTechnique('${t.id}',2);showTechniquesModal();">装备3</button>
+          ` : '<span style="font-size:12px;color:var(--fg2)">已装备</span>'}
+        </div>
+      </div>
+    `;
+  }
+  body += '</div>';
+  openModal("功法", body, '<button class="modal-btn" onclick="closeModal()">关闭</button>');
+}
+
+// Achievements modal
+function showAchievementsModal() {
+  let body = '<div class="item-list">';
+  for (const ach of ACHIEVEMENTS_DEF) {
+    const unlocked = state.achievements.unlocked.includes(ach.id);
+    body += `
+      <div class="item-row" style="opacity:${unlocked?1:0.5}">
+        <div class="item-info">
+          <div class="item-name" style="color:${unlocked?'var(--accent)':'var(--fg2)'}">${unlocked?'\u2713 ':''}${ach.name}</div>
+          <div class="item-desc">${ach.desc}</div>
+        </div>
+      </div>
+    `;
+  }
+  body += '</div>';
+  openModal("成就", body, '<button class="modal-btn" onclick="closeModal()">关闭</button>');
+}
+
+// Settings modal
+function showSettingsModal() {
+  let body = `
+    <div class="settings-row">
+      <span>角色名</span>
+      <span>
+        <input type="text" id="setting-name" value="${escapeHtml(state.player.name)}" maxlength="12" style="background:var(--bg);color:var(--fg);border:1px solid var(--border);padding:4px 8px;border-radius:4px;width:120px;">
+        <button class="small-btn" onclick="changeName()">修改</button>
+      </span>
+    </div>
+    <div class="settings-row">
+      <span>游戏时长</span>
+      <span>${Math.floor(state.meta.playTimeSeconds/60)} 分钟</span>
+    </div>
+    <div class="settings-row">
+      <span>累计突破</span>
+      <span>${state.realmState.totalBreakthroughs} 次</span>
+    </div>
+    <div class="settings-row">
+      <span>存档管理</span>
+      <span><button class="small-btn" onclick="showExportModal()">导出存档</button> <button class="small-btn" onclick="showImportModal()">导入存档</button></span>
+    </div>
+    <div class="settings-row">
+      <span>操作</span>
+      <span><button class="small-btn" onclick="if(confirm('确定要重置游戏吗？所有进度将清空！')){resetGame();closeModal();}" style="color:var(--danger)">重置游戏</button></span>
+    </div>
+  `;
+  openModal("设置", body, '<button class="modal-btn" onclick="closeModal()">关闭</button>');
+}
+function changeName() {
+  const el = document.getElementById("setting-name");
+  if (!el) return;
+  const name = el.value.trim();
+  if (name && name.length <= 12) {
+    state.player.name = name;
+    renderAll();
+    saveGame();
+    addLog("道号已更改为：" + name, "info");
+  }
+}
+function showExportModal() {
+  const body = `
+    <p>将下方存档码复制保存到安全位置，即可随时恢复进度：</p>
+    <textarea id="export-code-area" class="save-code-area" readonly placeholder="点击“生成存档码”后此处显示存档码"></textarea>
+    <p style="font-size:12px;color:var(--fg2);margin-top:6px">提示：存档码包含你的全部游戏进度，请妥善保管，不要泄露给他人。</p>
+  `;
+  const actions = `
+    <button class="modal-btn primary" onclick="copyExportCode()">生成并复制存档码</button>
+    <button class="modal-btn" onclick="showSettingsModal()">返回设置</button>
+  `;
+  openModal("导出存档", body, actions);
+}
+function showImportModal() {
+  const body = `
+    <p>将之前导出的存档码粘贴到下方，点击导入即可恢复进度：</p>
+    <textarea id="import-code-area" class="save-code-area" placeholder="在此粘贴存档码..."></textarea>
+    <p style="font-size:12px;color:var(--danger);margin-top:6px">警告：导入存档会覆盖当前进度，请确认后再操作。</p>
+  `;
+  const actions = `
+    <button class="modal-btn primary" onclick="doImportSave()">确认导入</button>
+    <button class="modal-btn" onclick="showSettingsModal()">返回设置</button>
+  `;
+  openModal("导入存档", body, actions);
+}
+
+// Offline modal
+function showOfflineModal() {
+  const rewards = calcOfflineRewards();
+  if (!rewards) return;
+  // P0-1 Fix: update lastOnlineAt immediately so the same reward cannot be re-claimed after refresh
+  state.meta.lastOnlineAt = Date.now();
+  state.pendingOfflineReward = rewards;
+  const body = `
+    <div class="offline-stats">
+      <div class="stat-label">你离线了</div>
+      <div class="big-number">${rewards.timeText}</div>
+      ${rewards.capped ? '<div class="stat-label" style="color:var(--danger)">已达到离线收益上限（2小时）</div>' : ''}
+    </div>
+    <p style="text-align:center;margin-top:12px">
+      修为：<strong style="color:var(--accent)">+${fmtNum(rewards.cultivationGain)}</strong><br>
+      灵石：<strong style="color:var(--accent)">+${fmtNum(rewards.spiritStoneGain)}</strong>
+    </p>
+  `;
+  openModal("闭关结束", body, '<button class="modal-btn primary" onclick="claimOfflineRewards();closeModal();">领取收益</button>');
+}
+
+// ===================== GAME LOOP =====================
+function gameTick() {
+  const now = Date.now();
+  const deltaMs = now - lastTick;
+  lastTick = now;
+  if (deltaMs <= 0 || deltaMs > 30000) return; // Sanity check
+  const deltaSeconds = deltaMs / 1000;
+  state.meta.playTimeSeconds += deltaSeconds;
+  doAutoCultivate(deltaSeconds);
+  // Check expedition - P1-1 Fix: add notified flag to prevent log spam
+  if (state.expedition.active && !state.expedition.claimed && getExpeditionRemaining() <= 0) {
+    if (!state.expedition.notified) {
+      state.expedition.notified = true;
+      addLog("历练已完成，可前往领取", "info");
+    }
+  }
+  // Check weaken recovery
+  if (state.realmState.weakenUntil > 0 && now >= state.realmState.weakenUntil) {
+    state.realmState.weakenUntil = 0;
+    addLog("虚弱状态解除，修炼恢复正常", "info");
+  }
+  // Combo reset
+  if (state.player.comboCount > 0 && now - state.player.lastComboAt > COMBO_WINDOW_MS) {
+    if (state.player.comboCount >= 10) {
+      addLog(`连击中断，最高连击 x${state.player.comboCount}`, "info");
+    }
+    state.player.comboCount = 0;
+  }
+  recalcAll();
+  renderAll();
+}
+
+// ===================== INIT =====================
+function initGame() {
+  logEl = document.getElementById("log-panel");
+  const loaded = loadGame();
+  if (loaded) {
+    state = loaded;
+    addLog("读取存档成功，欢迎回来，" + state.player.name, "success");
+  } else {
+    state = createInitialState();
+    addLog("初入仙途，愿你问道长生...", "info");
+  }
+  lastTick = Date.now();
+  recalcAll();
+  renderAll();
+  renderLog();
+  // Check offline rewards
+  setTimeout(() => {
+    const rewards = calcOfflineRewards();
+    if (rewards) {
+      showOfflineModal();
+    }
+  }, 500);
+  // Start loop
+  setInterval(gameTick, 100);
+  // Auto save - P1-2 Fix: interval reduced from 30000 to 5000 for better offline accuracy
+  saveTimer = setInterval(() => {
+    state.meta.lastOnlineAt = Date.now();
+    saveGame();
+  }, SAVE_INTERVAL_MS);
+  // Event listeners
+  document.getElementById("cultivate-btn").addEventListener("click", doManualCultivate);
+  document.getElementById("btn-breakthrough").addEventListener("click", showBreakthroughModal);
+  document.getElementById("btn-expedition").addEventListener("click", showExpeditionModal);
+  document.getElementById("btn-techniques").addEventListener("click", showTechniquesModal);
+  document.getElementById("btn-achievements").addEventListener("click", showAchievementsModal);
+  document.getElementById("btn-settings").addEventListener("click", showSettingsModal);
+  document.getElementById("modal-overlay").addEventListener("click", (e) => {
+    if (e.target.id === "modal-overlay") closeModal();
+  });
+  // Visibility change
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") {
+      lastTick = Date.now();
+      const rewards = calcOfflineRewards();
+      if (rewards && !modalOpen) {
+        showOfflineModal();
+      }
+    } else {
+      state.meta.lastOnlineAt = Date.now();
+      saveGame();
+    }
+  });
+  // Before unload
+  window.addEventListener("beforeunload", () => {
+    state.meta.lastOnlineAt = Date.now();
+    saveGame();
+  });
+  // Keyboard shortcut: space to cultivate
+  document.addEventListener("keydown", (e) => {
+    if (e.code === "Space" && !modalOpen) {
+      e.preventDefault();
+      doManualCultivate();
+    }
+  });
+  // Register service worker for PWA offline support (gracefully degrade on file://)
+  if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+    navigator.serviceWorker.register('./sw.js')
+      .then((reg) => {
+        console.log('[PWA] Service Worker registered:', reg.scope);
+      })
+      .catch((err) => {
+        console.warn('[PWA] Service Worker registration failed:', err);
+      });
+  }
+  // Initial achievement check
+  checkAchievements();
+}
+
+window.addEventListener("DOMContentLoaded", initGame);
+</script>
+</body>
+</html>
