@@ -1,0 +1,519 @@
+{
+    "importBase": "import",
+    "nativeBase": "native",
+    "name": "resources",
+    "deps": [],
+    "uuids": [
+        "07270e7c6",
+        "248ded09-e2d0-4f02-9bea-4549b353b900",
+        "248ded09-e2d0-4f02-9bea-4549b353b900@6c48a",
+        "248ded09-e2d0-4f02-9bea-4549b353b900@f9941",
+        "253ab51d-6489-40ac-8f2e-2ffe7205e591",
+        "253ab51d-6489-40ac-8f2e-2ffe7205e591@6c48a",
+        "253ab51d-6489-40ac-8f2e-2ffe7205e591@f9941",
+        "4538e555-3f61-41af-9e7c-db4c78c8b048",
+        "4538e555-3f61-41af-9e7c-db4c78c8b048@6c48a",
+        "4538e555-3f61-41af-9e7c-db4c78c8b048@f9941",
+        "5957d838-8a67-4d0a-8684-b7d7b88050e9",
+        "5957d838-8a67-4d0a-8684-b7d7b88050e9@6c48a",
+        "5957d838-8a67-4d0a-8684-b7d7b88050e9@f9941",
+        "62573326-d026-4fc7-8c9c-70ebe1a74928",
+        "62573326-d026-4fc7-8c9c-70ebe1a74928@6c48a",
+        "62573326-d026-4fc7-8c9c-70ebe1a74928@f9941",
+        "6763cc4b-7c24-4090-bb4e-a94c66a74acf",
+        "6763cc4b-7c24-4090-bb4e-a94c66a74acf@6c48a",
+        "6763cc4b-7c24-4090-bb4e-a94c66a74acf@f9941",
+        "6864a9fe-4403-43fe-8d65-9e5c0308dfed",
+        "6864a9fe-4403-43fe-8d65-9e5c0308dfed@6c48a",
+        "6864a9fe-4403-43fe-8d65-9e5c0308dfed@f9941",
+        "6cd8d258-eb82-416d-821e-dc6090cb3ba6",
+        "6cd8d258-eb82-416d-821e-dc6090cb3ba6@6c48a",
+        "6cd8d258-eb82-416d-821e-dc6090cb3ba6@f9941",
+        "7355d6e3-44da-403f-a9fd-a7be2e1692e8",
+        "7355d6e3-44da-403f-a9fd-a7be2e1692e8@6c48a",
+        "7355d6e3-44da-403f-a9fd-a7be2e1692e8@f9941",
+        "900f3bdf-ce7e-4bad-83af-f56d9367815b",
+        "900f3bdf-ce7e-4bad-83af-f56d9367815b@6c48a",
+        "900f3bdf-ce7e-4bad-83af-f56d9367815b@f9941",
+        "94d7f994-e432-4c26-b3a0-02e50a409281",
+        "94d7f994-e432-4c26-b3a0-02e50a409281@6c48a",
+        "94d7f994-e432-4c26-b3a0-02e50a409281@f9941",
+        "9714d774-138a-44f8-b490-0f150d0fddf2",
+        "9714d774-138a-44f8-b490-0f150d0fddf2@6c48a",
+        "9714d774-138a-44f8-b490-0f150d0fddf2@f9941",
+        "97239bae-50aa-4c91-8f67-fbef89458bff",
+        "97239bae-50aa-4c91-8f67-fbef89458bff@6c48a",
+        "97239bae-50aa-4c91-8f67-fbef89458bff@f9941",
+        "9bca6457-da3c-4f2c-b784-6a74bae1f449",
+        "9bca6457-da3c-4f2c-b784-6a74bae1f449@6c48a",
+        "9bca6457-da3c-4f2c-b784-6a74bae1f449@f9941",
+        "a205b14c-9376-495b-97ec-be3669ee2774",
+        "a205b14c-9376-495b-97ec-be3669ee2774@6c48a",
+        "a205b14c-9376-495b-97ec-be3669ee2774@f9941",
+        "ac1dc72a-f35d-44fc-b86a-07841ecbd76c",
+        "ac1dc72a-f35d-44fc-b86a-07841ecbd76c@6c48a",
+        "ac1dc72a-f35d-44fc-b86a-07841ecbd76c@f9941",
+        "ada6bc18-d9a7-4988-9029-dfe780f4c6cb",
+        "ada6bc18-d9a7-4988-9029-dfe780f4c6cb@6c48a",
+        "ada6bc18-d9a7-4988-9029-dfe780f4c6cb@f9941",
+        "c25865d6-ae24-4e5c-971a-7cb4f641fc68",
+        "c25865d6-ae24-4e5c-971a-7cb4f641fc68@6c48a",
+        "c25865d6-ae24-4e5c-971a-7cb4f641fc68@f9941",
+        "ca31379f-9ceb-4f22-9eda-7bbc21291230",
+        "ca31379f-9ceb-4f22-9eda-7bbc21291230@6c48a",
+        "ca31379f-9ceb-4f22-9eda-7bbc21291230@f9941",
+        "ce140d5b-f3a3-4780-a022-f9d334b65a79",
+        "ce140d5b-f3a3-4780-a022-f9d334b65a79@6c48a",
+        "ce140d5b-f3a3-4780-a022-f9d334b65a79@f9941",
+        "da2667d8-00c9-4e8c-807a-22b20d58fc52",
+        "da2667d8-00c9-4e8c-807a-22b20d58fc52@6c48a",
+        "da2667d8-00c9-4e8c-807a-22b20d58fc52@f9941",
+        "e7694cde-7c4e-4e53-ad16-4bbf70bab416",
+        "e7694cde-7c4e-4e53-ad16-4bbf70bab416@6c48a",
+        "e7694cde-7c4e-4e53-ad16-4bbf70bab416@f9941",
+        "eee6ed87-14fa-4c32-bca6-82354524cb84",
+        "eee6ed87-14fa-4c32-bca6-82354524cb84@6c48a",
+        "eee6ed87-14fa-4c32-bca6-82354524cb84@f9941",
+        "efdbbe35-5b8a-4746-966d-5b0b9f180fb5",
+        "efdbbe35-5b8a-4746-966d-5b0b9f180fb5@6c48a",
+        "efdbbe35-5b8a-4746-966d-5b0b9f180fb5@f9941",
+        "f1f69616-f9ee-48ec-a92e-87166945efa6",
+        "f1f69616-f9ee-48ec-a92e-87166945efa6@6c48a",
+        "f1f69616-f9ee-48ec-a92e-87166945efa6@f9941",
+        "feea0525-1e60-4910-8e22-be0cf437b3f9",
+        "feea0525-1e60-4910-8e22-be0cf437b3f9@6c48a",
+        "feea0525-1e60-4910-8e22-be0cf437b3f9@f9941"
+    ],
+    "paths": {
+        "ada6bc18-d9a7-4988-9029-dfe780f4c6cb": [
+            "ui/01_启动页",
+            "cc.ImageAsset",
+            1
+        ],
+        "ada6bc18-d9a7-4988-9029-dfe780f4c6cb@6c48a": [
+            "ui/01_启动页/texture",
+            "cc.Texture2D",
+            1
+        ],
+        "ada6bc18-d9a7-4988-9029-dfe780f4c6cb@f9941": [
+            "ui/01_启动页/spriteFrame",
+            "cc.SpriteFrame",
+            1
+        ],
+        "6cd8d258-eb82-416d-821e-dc6090cb3ba6": [
+            "ui/02_洞府主界面",
+            "cc.ImageAsset",
+            1
+        ],
+        "6cd8d258-eb82-416d-821e-dc6090cb3ba6@6c48a": [
+            "ui/02_洞府主界面/texture",
+            "cc.Texture2D",
+            1
+        ],
+        "6cd8d258-eb82-416d-821e-dc6090cb3ba6@f9941": [
+            "ui/02_洞府主界面/spriteFrame",
+            "cc.SpriteFrame",
+            1
+        ],
+        "a205b14c-9376-495b-97ec-be3669ee2774": [
+            "ui/03_历练页",
+            "cc.ImageAsset",
+            1
+        ],
+        "a205b14c-9376-495b-97ec-be3669ee2774@6c48a": [
+            "ui/03_历练页/texture",
+            "cc.Texture2D",
+            1
+        ],
+        "a205b14c-9376-495b-97ec-be3669ee2774@f9941": [
+            "ui/03_历练页/spriteFrame",
+            "cc.SpriteFrame",
+            1
+        ],
+        "6864a9fe-4403-43fe-8d65-9e5c0308dfed": [
+            "ui/04_功法页",
+            "cc.ImageAsset",
+            1
+        ],
+        "6864a9fe-4403-43fe-8d65-9e5c0308dfed@6c48a": [
+            "ui/04_功法页/texture",
+            "cc.Texture2D",
+            1
+        ],
+        "6864a9fe-4403-43fe-8d65-9e5c0308dfed@f9941": [
+            "ui/04_功法页/spriteFrame",
+            "cc.SpriteFrame",
+            1
+        ],
+        "9714d774-138a-44f8-b490-0f150d0fddf2": [
+            "ui/05_背包页",
+            "cc.ImageAsset",
+            1
+        ],
+        "9714d774-138a-44f8-b490-0f150d0fddf2@6c48a": [
+            "ui/05_背包页/texture",
+            "cc.Texture2D",
+            1
+        ],
+        "9714d774-138a-44f8-b490-0f150d0fddf2@f9941": [
+            "ui/05_背包页/spriteFrame",
+            "cc.SpriteFrame",
+            1
+        ],
+        "ca31379f-9ceb-4f22-9eda-7bbc21291230": [
+            "ui/06_战斗页",
+            "cc.ImageAsset",
+            1
+        ],
+        "ca31379f-9ceb-4f22-9eda-7bbc21291230@6c48a": [
+            "ui/06_战斗页/texture",
+            "cc.Texture2D",
+            1
+        ],
+        "ca31379f-9ceb-4f22-9eda-7bbc21291230@f9941": [
+            "ui/06_战斗页/spriteFrame",
+            "cc.SpriteFrame",
+            1
+        ],
+        "97239bae-50aa-4c91-8f67-fbef89458bff": [
+            "ui/07_战斗结算页",
+            "cc.ImageAsset",
+            1
+        ],
+        "97239bae-50aa-4c91-8f67-fbef89458bff@6c48a": [
+            "ui/07_战斗结算页/texture",
+            "cc.Texture2D",
+            1
+        ],
+        "97239bae-50aa-4c91-8f67-fbef89458bff@f9941": [
+            "ui/07_战斗结算页/spriteFrame",
+            "cc.SpriteFrame",
+            1
+        ],
+        "253ab51d-6489-40ac-8f2e-2ffe7205e591": [
+            "ui/08_章节选择页",
+            "cc.ImageAsset",
+            1
+        ],
+        "253ab51d-6489-40ac-8f2e-2ffe7205e591@6c48a": [
+            "ui/08_章节选择页/texture",
+            "cc.Texture2D",
+            1
+        ],
+        "253ab51d-6489-40ac-8f2e-2ffe7205e591@f9941": [
+            "ui/08_章节选择页/spriteFrame",
+            "cc.SpriteFrame",
+            1
+        ],
+        "94d7f994-e432-4c26-b3a0-02e50a409281": [
+            "ui/09_任务页",
+            "cc.ImageAsset",
+            1
+        ],
+        "94d7f994-e432-4c26-b3a0-02e50a409281@6c48a": [
+            "ui/09_任务页/texture",
+            "cc.Texture2D",
+            1
+        ],
+        "94d7f994-e432-4c26-b3a0-02e50a409281@f9941": [
+            "ui/09_任务页/spriteFrame",
+            "cc.SpriteFrame",
+            1
+        ],
+        "7355d6e3-44da-403f-a9fd-a7be2e1692e8": [
+            "ui/10_成就页",
+            "cc.ImageAsset",
+            1
+        ],
+        "7355d6e3-44da-403f-a9fd-a7be2e1692e8@6c48a": [
+            "ui/10_成就页/texture",
+            "cc.Texture2D",
+            1
+        ],
+        "7355d6e3-44da-403f-a9fd-a7be2e1692e8@f9941": [
+            "ui/10_成就页/spriteFrame",
+            "cc.SpriteFrame",
+            1
+        ],
+        "ce140d5b-f3a3-4780-a022-f9d334b65a79": [
+            "ui/11_角色详情页",
+            "cc.ImageAsset",
+            1
+        ],
+        "ce140d5b-f3a3-4780-a022-f9d334b65a79@6c48a": [
+            "ui/11_角色详情页/texture",
+            "cc.Texture2D",
+            1
+        ],
+        "ce140d5b-f3a3-4780-a022-f9d334b65a79@f9941": [
+            "ui/11_角色详情页/spriteFrame",
+            "cc.SpriteFrame",
+            1
+        ],
+        "900f3bdf-ce7e-4bad-83af-f56d9367815b": [
+            "ui/12_坊市页",
+            "cc.ImageAsset",
+            1
+        ],
+        "900f3bdf-ce7e-4bad-83af-f56d9367815b@6c48a": [
+            "ui/12_坊市页/texture",
+            "cc.Texture2D",
+            1
+        ],
+        "900f3bdf-ce7e-4bad-83af-f56d9367815b@f9941": [
+            "ui/12_坊市页/spriteFrame",
+            "cc.SpriteFrame",
+            1
+        ],
+        "f1f69616-f9ee-48ec-a92e-87166945efa6": [
+            "ui/13_仙缘阁_充值月卡页",
+            "cc.ImageAsset",
+            1
+        ],
+        "f1f69616-f9ee-48ec-a92e-87166945efa6@6c48a": [
+            "ui/13_仙缘阁_充值月卡页/texture",
+            "cc.Texture2D",
+            1
+        ],
+        "f1f69616-f9ee-48ec-a92e-87166945efa6@f9941": [
+            "ui/13_仙缘阁_充值月卡页/spriteFrame",
+            "cc.SpriteFrame",
+            1
+        ],
+        "efdbbe35-5b8a-4746-966d-5b0b9f180fb5": [
+            "ui/14_礼包_兑换码页",
+            "cc.ImageAsset",
+            1
+        ],
+        "efdbbe35-5b8a-4746-966d-5b0b9f180fb5@6c48a": [
+            "ui/14_礼包_兑换码页/texture",
+            "cc.Texture2D",
+            1
+        ],
+        "efdbbe35-5b8a-4746-966d-5b0b9f180fb5@f9941": [
+            "ui/14_礼包_兑换码页/spriteFrame",
+            "cc.SpriteFrame",
+            1
+        ],
+        "248ded09-e2d0-4f02-9bea-4549b353b900": [
+            "ui/15_丹器阁_炼器炼丹页",
+            "cc.ImageAsset",
+            1
+        ],
+        "248ded09-e2d0-4f02-9bea-4549b353b900@6c48a": [
+            "ui/15_丹器阁_炼器炼丹页/texture",
+            "cc.Texture2D",
+            1
+        ],
+        "248ded09-e2d0-4f02-9bea-4549b353b900@f9941": [
+            "ui/15_丹器阁_炼器炼丹页/spriteFrame",
+            "cc.SpriteFrame",
+            1
+        ],
+        "ac1dc72a-f35d-44fc-b86a-07841ecbd76c": [
+            "ui/16_秘境_组队副本页",
+            "cc.ImageAsset",
+            1
+        ],
+        "ac1dc72a-f35d-44fc-b86a-07841ecbd76c@6c48a": [
+            "ui/16_秘境_组队副本页/texture",
+            "cc.Texture2D",
+            1
+        ],
+        "ac1dc72a-f35d-44fc-b86a-07841ecbd76c@f9941": [
+            "ui/16_秘境_组队副本页/spriteFrame",
+            "cc.SpriteFrame",
+            1
+        ],
+        "eee6ed87-14fa-4c32-bca6-82354524cb84": [
+            "ui/17_灵兽阁_灵宠坐骑页",
+            "cc.ImageAsset",
+            1
+        ],
+        "eee6ed87-14fa-4c32-bca6-82354524cb84@6c48a": [
+            "ui/17_灵兽阁_灵宠坐骑页/texture",
+            "cc.Texture2D",
+            1
+        ],
+        "eee6ed87-14fa-4c32-bca6-82354524cb84@f9941": [
+            "ui/17_灵兽阁_灵宠坐骑页/spriteFrame",
+            "cc.SpriteFrame",
+            1
+        ],
+        "e7694cde-7c4e-4e53-ad16-4bbf70bab416": [
+            "ui/18_宗门页",
+            "cc.ImageAsset",
+            1
+        ],
+        "e7694cde-7c4e-4e53-ad16-4bbf70bab416@6c48a": [
+            "ui/18_宗门页/texture",
+            "cc.Texture2D",
+            1
+        ],
+        "e7694cde-7c4e-4e53-ad16-4bbf70bab416@f9941": [
+            "ui/18_宗门页/spriteFrame",
+            "cc.SpriteFrame",
+            1
+        ],
+        "4538e555-3f61-41af-9e7c-db4c78c8b048": [
+            "ui/19_飞鸽传书_邮件页",
+            "cc.ImageAsset",
+            1
+        ],
+        "4538e555-3f61-41af-9e7c-db4c78c8b048@6c48a": [
+            "ui/19_飞鸽传书_邮件页/texture",
+            "cc.Texture2D",
+            1
+        ],
+        "4538e555-3f61-41af-9e7c-db4c78c8b048@f9941": [
+            "ui/19_飞鸽传书_邮件页/spriteFrame",
+            "cc.SpriteFrame",
+            1
+        ],
+        "5957d838-8a67-4d0a-8684-b7d7b88050e9": [
+            "ui/20_风云榜_排行榜页",
+            "cc.ImageAsset",
+            1
+        ],
+        "5957d838-8a67-4d0a-8684-b7d7b88050e9@6c48a": [
+            "ui/20_风云榜_排行榜页/texture",
+            "cc.Texture2D",
+            1
+        ],
+        "5957d838-8a67-4d0a-8684-b7d7b88050e9@f9941": [
+            "ui/20_风云榜_排行榜页/spriteFrame",
+            "cc.SpriteFrame",
+            1
+        ],
+        "feea0525-1e60-4910-8e22-be0cf437b3f9": [
+            "ui/21_道友_好友页",
+            "cc.ImageAsset",
+            1
+        ],
+        "feea0525-1e60-4910-8e22-be0cf437b3f9@6c48a": [
+            "ui/21_道友_好友页/texture",
+            "cc.Texture2D",
+            1
+        ],
+        "feea0525-1e60-4910-8e22-be0cf437b3f9@f9941": [
+            "ui/21_道友_好友页/spriteFrame",
+            "cc.SpriteFrame",
+            1
+        ],
+        "9bca6457-da3c-4f2c-b784-6a74bae1f449": [
+            "ui/22_活动_签到页",
+            "cc.ImageAsset",
+            1
+        ],
+        "9bca6457-da3c-4f2c-b784-6a74bae1f449@6c48a": [
+            "ui/22_活动_签到页/texture",
+            "cc.Texture2D",
+            1
+        ],
+        "9bca6457-da3c-4f2c-b784-6a74bae1f449@f9941": [
+            "ui/22_活动_签到页/spriteFrame",
+            "cc.SpriteFrame",
+            1
+        ],
+        "c25865d6-ae24-4e5c-971a-7cb4f641fc68": [
+            "ui/23_山海图鉴_收集页",
+            "cc.ImageAsset",
+            1
+        ],
+        "c25865d6-ae24-4e5c-971a-7cb4f641fc68@6c48a": [
+            "ui/23_山海图鉴_收集页/texture",
+            "cc.Texture2D",
+            1
+        ],
+        "c25865d6-ae24-4e5c-971a-7cb4f641fc68@f9941": [
+            "ui/23_山海图鉴_收集页/spriteFrame",
+            "cc.SpriteFrame",
+            1
+        ],
+        "62573326-d026-4fc7-8c9c-70ebe1a74928": [
+            "ui/24_问仙堂_客服反馈页",
+            "cc.ImageAsset",
+            1
+        ],
+        "62573326-d026-4fc7-8c9c-70ebe1a74928@6c48a": [
+            "ui/24_问仙堂_客服反馈页/texture",
+            "cc.Texture2D",
+            1
+        ],
+        "62573326-d026-4fc7-8c9c-70ebe1a74928@f9941": [
+            "ui/24_问仙堂_客服反馈页/spriteFrame",
+            "cc.SpriteFrame",
+            1
+        ],
+        "6763cc4b-7c24-4090-bb4e-a94c66a74acf": [
+            "ui/25_设置页",
+            "cc.ImageAsset",
+            1
+        ],
+        "6763cc4b-7c24-4090-bb4e-a94c66a74acf@6c48a": [
+            "ui/25_设置页/texture",
+            "cc.Texture2D",
+            1
+        ],
+        "6763cc4b-7c24-4090-bb4e-a94c66a74acf@f9941": [
+            "ui/25_设置页/spriteFrame",
+            "cc.SpriteFrame",
+            1
+        ],
+        "da2667d8-00c9-4e8c-807a-22b20d58fc52": [
+            "ui/26_弹窗组件规范页",
+            "cc.ImageAsset",
+            1
+        ],
+        "da2667d8-00c9-4e8c-807a-22b20d58fc52@6c48a": [
+            "ui/26_弹窗组件规范页/texture",
+            "cc.Texture2D",
+            1
+        ],
+        "da2667d8-00c9-4e8c-807a-22b20d58fc52@f9941": [
+            "ui/26_弹窗组件规范页/spriteFrame",
+            "cc.SpriteFrame",
+            1
+        ]
+    },
+    "scenes": {},
+    "packs": {
+        "07270e7c6": [
+            "6cd8d258-eb82-416d-821e-dc6090cb3ba6@6c48a",
+            "9bca6457-da3c-4f2c-b784-6a74bae1f449@6c48a",
+            "94d7f994-e432-4c26-b3a0-02e50a409281@6c48a",
+            "248ded09-e2d0-4f02-9bea-4549b353b900@6c48a",
+            "253ab51d-6489-40ac-8f2e-2ffe7205e591@6c48a",
+            "900f3bdf-ce7e-4bad-83af-f56d9367815b@6c48a",
+            "4538e555-3f61-41af-9e7c-db4c78c8b048@6c48a",
+            "5957d838-8a67-4d0a-8684-b7d7b88050e9@6c48a",
+            "6763cc4b-7c24-4090-bb4e-a94c66a74acf@6c48a",
+            "6864a9fe-4403-43fe-8d65-9e5c0308dfed@6c48a",
+            "7355d6e3-44da-403f-a9fd-a7be2e1692e8@6c48a",
+            "9714d774-138a-44f8-b490-0f150d0fddf2@6c48a",
+            "97239bae-50aa-4c91-8f67-fbef89458bff@6c48a",
+            "62573326-d026-4fc7-8c9c-70ebe1a74928@6c48a",
+            "a205b14c-9376-495b-97ec-be3669ee2774@6c48a",
+            "ac1dc72a-f35d-44fc-b86a-07841ecbd76c@6c48a",
+            "ada6bc18-d9a7-4988-9029-dfe780f4c6cb@6c48a",
+            "c25865d6-ae24-4e5c-971a-7cb4f641fc68@6c48a",
+            "ca31379f-9ceb-4f22-9eda-7bbc21291230@6c48a",
+            "ce140d5b-f3a3-4780-a022-f9d334b65a79@6c48a",
+            "da2667d8-00c9-4e8c-807a-22b20d58fc52@6c48a",
+            "e7694cde-7c4e-4e53-ad16-4bbf70bab416@6c48a",
+            "eee6ed87-14fa-4c32-bca6-82354524cb84@6c48a",
+            "efdbbe35-5b8a-4746-966d-5b0b9f180fb5@6c48a",
+            "f1f69616-f9ee-48ec-a92e-87166945efa6@6c48a",
+            "feea0525-1e60-4910-8e22-be0cf437b3f9@6c48a"
+        ]
+    },
+    "versions": {
+        "import": [],
+        "native": []
+    },
+    "redirect": [],
+    "debug": true,
+    "extensionMap": {},
+    "hasPreloadScript": true,
+    "dependencyRelationships": {}
+}
